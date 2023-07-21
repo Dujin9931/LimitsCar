@@ -1,0 +1,166 @@
+/*****************************************************************************
+ *
+ *  PROJECT:     Dujin Corporation
+ *  FILE:        vendor/module_limits/CVehicleLimits.hpp
+ *  PURPOSE:     Vehicle limits
+ *  Author:      Du3in
+ *  Readme:      Du3in
+ * Github:       Dujin9931
+ *
+ *****************************************************************************/
+
+class CVehicleLimits;
+
+// Typedef
+typedef unsigned char  uchar;
+typedef unsigned int   uint;
+typedef unsigned short ushort;
+typedef unsigned long  ulong;
+
+// List over all vehicles with their passenger max counts
+const SFixedArray<uchar, 212> g_ucMaxPassengers = {
+    3, 1,   1,   1,   3,   3, 0,   1,  1, 3, 1, 1,   1, 3, 1, 1,  // 400->415
+    3, 1,   3,   1,   3,   3, 1,   1,  1, 0, 3, 3,   3, 1, 0, 8,  // 416->431
+    0, 1,   1,   255, 1,   8, 3,   1,  3, 0, 1, 1,   1, 3, 0, 1,  // 432->447
+    0, 1,   255, 1,   0,   0, 0,   1,  1, 1, 3, 3,   1, 1, 1,     // 448->462
+    1, 1,   1,   3,   3,   1, 1,   3,  1, 0, 0, 1,   1, 0, 1, 1,  // 463->478
+    3, 1,   0,   3,   1,   0, 0,   0,  3, 1, 1, 3,   1, 3, 0, 1,  // 479->494
+    1, 1,   3,   3,   1,   1, 1,   1,  1, 1, 1, 1,   3, 1, 0, 0,  // 495->510
+    1, 0,   0,   1,   1,   3, 1,   1,  0, 0, 1, 1,   1, 1, 1, 1,  // 511->526
+    1, 1,   3,   0,   0,   0, 1,   1,  1, 1, 1, 1,   0, 3, 1,     // 527->541
+    1, 1,   1,   1,   3,   3, 1,   1,  3, 3, 1, 0,   1, 1, 1, 1,  // 542->557
+    1, 1,   3,   3,   1,   1, 0,   1,  3, 3, 0, 255, 1, 0, 0,     // 558->572
+    1, 0,   1,   1,   1,   1, 3,   3,  1, 3, 0, 255, 3, 1, 1, 1,  // 573->588
+    1, 255, 255, 1,   1,   1, 0,   3,  3, 3, 1, 1,   1, 1, 1,     // 589->604
+    3, 1,   255, 255, 255, 3, 255, 255
+};
+
+const SFixedArray<uchar, 186> g_ucMaxPassengersNextRp = {
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6526->6545
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6546->6565
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6566->6585
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6586->6605
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6606->6625
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6626->6645
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6646->6665
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 6666->6685
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 0, 0, 3, 3, 3, 3, // 6686->6705
+    3, 3, 3, 3, 3, 3                                            // 6706->6711
+};
+
+class CVehicleLimits
+{
+public:
+    static constexpr ushort GetMinModelStandard() { return 400; }
+    static constexpr ushort GetMaxModelStandard() { return 611; }
+    static constexpr ushort GetModelStandard()    { return GetMaxModelStandard() - GetMinModelStandard(); }
+
+    static constexpr ushort GetMinModelEditor() { return 6283; }
+    static constexpr ushort GetMaxModelEditor() { return 6525; }
+    static constexpr ushort GetModelEditor()    { return GetMaxModelEditor() - GetMinModelEditor(); }
+
+    static constexpr ushort GetMinModelNextRp() { return 6526; }
+    static constexpr ushort GetMaxModelNextRp() { return 6711; }
+    static constexpr ushort GetModelNextRp()    { return GetMaxModelNextRp() - GetMinModelNextRp(); }
+
+    static constexpr ushort GetMinModelBSG() { return 30000; }
+    static constexpr ushort GetMaxModelBSG() { return 30500; }
+    static constexpr ushort GetModelBSG()    { return GetMaxModelBSG() - GetMinModelBSG(); }
+
+    // Get passenger
+    static ushort GetDefaultPassenger() { return 3; }
+    static ushort GetInvalidPassenger() { return 0xFF; }
+
+    //
+    // Limits
+    //
+    static bool IsStandardModel(ushort usModel)
+    {
+        return usModel >= GetMinModelStandard() && usModel <= GetMaxModelStandard();
+    }
+
+    static bool IsValidModelEditor(ushort usModel)
+    {
+        return usModel >= GetMinModelEditor() && usModel <= GetMaxModelEditor();
+    }
+
+    static bool IsValidModelNextRp(ushort usModel)
+    {
+        return usModel >= GetMinModelNextRp() && usModel <= GetMaxModelNextRp();
+    }
+
+    static bool IsValidModelBSG(ushort usModel)
+    {
+        return usModel >= GetMinModelBSG() && usModel <= GetMaxModelBSG();
+    }
+
+    //
+    // Others
+    //
+    static bool IsValidModelLimits(ushort usModel)
+    {
+        return (IsValidModelEditor(usModel) || IsValidModelNextRp(usModel) || IsValidModelBSG(usModel));
+    }
+
+    static bool IsValidModel(ushort usModel)
+    {
+        return (IsStandardModel(usModel) || IsValidModelEditor(usModel) || IsValidModelNextRp(usModel) || IsValidModelBSG(usModel));
+    }
+
+    static bool IsTrainModel(ushort usModel)
+    {
+        return (usModel == 449 || usModel == 537 || usModel == 538 || usModel == 569 || usModel == 590 || usModel == 570);
+    }
+
+    // Bike models the limits
+    static bool IsBikeModelNew(ushort usModel)
+    {
+        return usModel == 6289 || usModel == 6292 || usModel == 6332 || usModel == 6702;
+    }
+
+    // All bike model
+    static bool IsBikeModel(ushort usModel)
+    {
+        // Not model 471
+        return usModel == 448  || usModel == 461  || usModel == 462  || usModel == 463 || usModel == 468  || usModel == 521  ||
+               usModel == 522  || usModel == 523  || usModel == 581  || usModel == 586 || usModel == 6289 || usModel == 6292 ||
+               usModel == 6332 || usModel == 6702;
+    }
+
+    static bool IsTrailerModel(ushort usModel)
+    {
+        return usModel == 435 || usModel == 450 || usModel == 569 || usModel == 570 || usModel == 584 || usModel == 590 ||
+               usModel == 591 || usModel == 606 || usModel == 607 || usModel == 608 || usModel == 610 || usModel == 611;
+    }
+
+    static bool IsSirenModel(ushort usModel)
+    {
+        return usModel == 596 || usModel == 597 || usModel == 598 || usModel == 599 || usModel == 490 || usModel == 601 ||
+               usModel == 528 || usModel == 407 || usModel == 416 || usModel == 433 || usModel == 427 || usModel == 544 ||
+               usModel == 523 || usModel == 432 || usModel == 423 || usModel == 420 || usModel == 438;
+    }
+
+    static uchar GetMaxPassenger(ushort usModel)
+    {
+        // Valid model?
+        if (IsStandardModel(usModel))
+        {
+            return g_ucMaxPassengers[usModel - GetMinModelStandard()];
+        }
+
+        // Valid model?
+        if (IsValidModelNextRp(usModel))
+        {
+            return g_ucMaxPassengersNextRp[usModel - GetMinModelNextRp()];
+        }
+
+        // Valid model?
+        if (IsValidModelEditor(usModel) || IsValidModelBSG(usModel))
+        {
+            return GetDefaultPassenger();
+        }
+
+        // Invalid index
+        return GetInvalidPassenger();
+    }
+};
